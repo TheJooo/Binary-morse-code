@@ -41,6 +41,7 @@ class MorseTree {
             addLetter(entry[0].charAt(0), entry[1]);
         }
     }
+
     private void addLetter(char letter, String morseCode) {
         Node current = root;
         for (char symbol : morseCode.toCharArray()) {
@@ -96,6 +97,23 @@ class MorseTree {
             }
         }
         return decodedMessage.toString();
+    }
+
+    // Method to get the Morse tree structure as a string
+    public String getTreeStructure() {
+        StringBuilder builder = new StringBuilder();
+        buildTreeStructureString(root, 0, builder);
+        return builder.toString();
+    }
+
+    private void buildTreeStructureString(Node node, int depth, StringBuilder builder) {
+        if (node == null) {
+            return;
+        }
+        String indent = "  ".repeat(depth);
+        builder.append(indent).append(node.letter == ' ' ? "(empty)" : node.letter).append("\n");
+        buildTreeStructureString(node.dot, depth + 1, builder);
+        buildTreeStructureString(node.dash, depth + 1, builder);
     }
 }
 
